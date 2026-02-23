@@ -19,10 +19,12 @@ Structured Output, and AI Model Workflows</strong>.
   <li><a href="#runnables">Runnables</a></li>
   <li><a href="#rag-pipeline">RAG Pipeline</a></li>
   <li><a href="#rag-components">RAG Components</a></li>
+  <li><a href="#agents">Agents (Reasoning Systems)</a></li>
+  <li><a href="#crag">CRAG (Corrective RAG)</a></li>
+  <li><a href="#fastapi">FastAPI Integration</a></li>
   <li><a href="#installation">Installation</a></li>
   <li><a href="#troubleshooting">Troubleshooting</a></li>
   <li><a href="#contributors">Contributors</a></li>
-  <li><a href="#license">License</a></li>
 </ul>
 
 <hr>
@@ -60,13 +62,12 @@ for building real-world LangChain & RAG systems from scratch.
 
 <h3>💬 Chat Models</h3>
 <ul>
-  <li>Optimized for dialogue</li>
-  <li>Maintain context</li>
-  <li>Understand conversational roles</li>
+  <li>Optimized for dialogue & maintain context</li>
+  <li>Supports System, Human, and AI message roles</li>
 </ul>
 
 <h3>📍 HuggingFace</h3>
-<p>A major hub for open-source AI models.</p>
+<p>A major hub for open-source AI models. Use via <code>HuggingFaceEndpoint</code> or <code>LocalHuggingFace</code>.</p>
 
 <h3>2️⃣ Embedding Models</h3>
 <p>Convert text → vectors for semantic search.</p>
@@ -232,8 +233,8 @@ RAG = <strong>Retrieval-Augmented Generation</strong> — the model retrieves co
 <h4>Use cases:</h4>
 <ul>
   <li>Semantic search</li>
-  <li>RAG</li>
-  <li>Recommendations</li>
+  <li>RAG (Retrieval-Augmented Generation)</li>
+  <li><strong>PGVector</strong> (PostgreSQL integration)</li>
 </ul>
 
 <h3>4️⃣ Retrievers</h3>
@@ -244,6 +245,37 @@ RAG = <strong>Retrieval-Augmented Generation</strong> — the model retrieves co
   <li>Multi-query Retriever</li>
   <li>Contextual Compression Retriever</li>
 </ol>
+
+<hr>
+
+<h2 id="agents">🤖 Agents (Reasoning Systems)</h2>
+<p>Agents use an LLM to determine which actions to take and in what order.</p>
+<ul>
+  <li><strong>Zero-Shot ReAct description</strong>: Decides tool call on the fly.</li>
+  <li><strong>Conversational ReAct</strong>: ReAct with chat history memory.</li>
+  <li><strong>Self-Ask with Search</strong>: Breaks questions into sub-questions.</li>
+  <li><strong>Structured Chat</strong>: Ensures responses follow a structured format.</li>
+</ul>
+
+<hr>
+
+<h2 id="crag">🔄 CRAG (Corrective RAG)</h2>
+<p>Advanced RAG workflow that includes self-correction and web search fallback. Uses LangGraph for state management.</p>
+<ul>
+  <li><strong>Evaluator</strong>: Grades retrieved documents for relevance.</li>
+  <li><strong>Query Rewrite</strong>: Refines the user query for better retrieval.</li>
+  <li><strong>Web Search Refinement</strong>: Fallback to web search if local context is insufficient.</li>
+</ul>
+
+<hr>
+
+<h2 id="fastapi">🌐 FastAPI Integration</h2>
+<p>Deploying LangChain models as web APIs using FastAPI.</p>
+<ul>
+  <li><strong>Real-time RAG</strong>: Querying vector stores via web requests.</li>
+  <li><strong>Chat Interface</strong>: Custom Jinja2 templates for interacting with RAG.</li>
+  <li><strong>PGVector Storage</strong>: Persistent vector storage in PostgreSQL for large datasets.</li>
+</ul>
 
 <hr>
 
@@ -269,8 +301,3 @@ pip install -r requirements.txt
 
 <h2 id="contributors">👨‍💻 Contributors</h2>
 <p>This repository is maintained and documented by <strong>Yug Dandawala</strong>.</p>
-
-<hr>
-
-<h2 id="license">📄 License</h2>
-<p>Free to use, modify, and share.</p>
