@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Markdown Preview</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        textarea {
+            width: 700px;
+            height: 150px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            font-family: monospace;
+            padding: 10px;
+        }
+
+        /* input{
+            border-radius:15px;
+            border:0.1em solid rgba(8, 7, 7, 0.805);
+            width: 700px;
+            height: 70px;
+        } */
+
+        .preview {
+            margin-top: 25px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #9e1a1a;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Markdown Preview</h1>
+
+    <form method="post" action="/generate">
+        <label>Enter Query:</label><br><br>
+        <!-- <input name="response"> -->
+        <textarea name="response">{{ md_input }}</textarea><br>
+        <button type="submit">Generate</button>
+    </form>
+
+    <h2>Preview:</h2>
+    <div class="preview">
+        {{ md_html | safe }}
+    </div>
+
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <title>Markdown Preview</title>
+</head>
+
+<body>
+    <form method="post" action="/generate">
+        Markdown:<textarea style="width:700px; height:150px;">{{ md_input }}</textarea>
+        Query :<input name="response" style="border-radius:15px;border:0.1em solid rgba(8, 7, 7, 0.805);width: 700px;height: 70px;">
+        <button type="submit">Generate</button>
+    </form>
+
+    <h2>Preview:</h2>
+    <div>
+        {{ md_html | safe }}
+    </div>
+</body>
+
+</html> -->

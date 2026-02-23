@@ -1,0 +1,31 @@
+#This are all agents reasoning system
+
+1.zero-shot-react-description 
+    -The agent reads tool descriptions and decides which to call on the fly.
+    -Zero-shot = no training on tools needed.
+
+2.zero-shot-react-docstore
+    -Like above, but also designed for searching documents
+    -With vector Databases
+
+3.conversational-react-description
+    -ReAct + maintains chat history, so the agent can remember previous messages
+
+4.self-ask-with-search
+    -Breaks questions into subquestions and uses search to answer them
+
+5.structured-chat-zero-shot
+    -Ensures responses follow a structured format (JSON, YAML)
+
+6.reAct-style
+    -Reason + Act
+
+7.conversational-react-docstore
+    -Combines ReAct reasoning + document search + conversation context.
+
+8.self-ask-with-search-plus-memory
+    -Breaks questions into sub-questions, searches external knowledge sources
+     and remembers past interactions.
+
+9.Structured-chat-conversational
+    -Smart, memory-enabled assistant that follows a structured workflow

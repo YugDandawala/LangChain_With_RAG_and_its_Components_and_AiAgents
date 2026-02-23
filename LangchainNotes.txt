@@ -1,0 +1,186 @@
+<---|--->
+Models:It is a type of interface to interact with different types of AI models 
+Types of Models : 1.Language model :input text -->LLM--> text
+ 	 	          2.Embedded model :input text --> vectors 	
+ 	 	  
+1.Language model
+
+//LLM	models are for general purpose(code,text,etc)
+Usecases:text generation,summarization,translation,code,creating writing
+
+//chatbots --> only for chats and are trained on whole chat data only so its very efficient to use chatbots instead of LLMs for bots
+               langchain is also telling to work with chatbots rather than LLM for text realted workspace.
+               -- understand the role given and have memory to store for last conversations which LLMs dont have.
+//usecase:conversational AI,chatbots,virtual assistant,ai tutor,customer support 
+
+
+#Hugging Face is the place where all open source AI models will be there 
+
+-You can download any model from here or use its APIs and directly use a models
+
+2.Embedded model is done
+      
+   --> It converts all given output data of the model into list of vectors and stores it in database.
+   --> when user gives input it is also embedded to list of vectors of that input string.
+   --> Then this user query vectors starts searching in database (as that vector from database which is closed to this query vector) and gives the response according to it. 
+   --> This type of search is known as Semantic Search.
+   
+<---|--->
+ Prompts:A query given to model
+ Types of Models: 1.text based (most widely used)
+ 	   	    		   |
+		 	   	       |
+		 	   --------------------
+		    Static 	    		Dynamic
+		      |				       |
+    A prompt is fixed      A prompt which includes user inputs
+		  \                       /                   
+		    \                   /
+			  \               /
+			    \           /
+			      \       / 
+			 1.Single Messages
+			 2.List of Messages
+ 
+ 		  2.multimodel prompts(like audio,images etc)
+ 		   -- not practiced
+ 		  
+<---|--->
+Output Source :--- When we get some response from the LLM model it responds in text which is called unstructured data
+               --- We get Structured output as some Json Output so it can be stored in database easily and will be helpful for further processes
+               --- Because of Structured data LLM can work with different Systems 
+          * Why we need structured output
+           1.Data Extraction
+           2.API Building
+           3.Agents
+           
+					    LLM
+					   /   \
+					  /     \
+					 /       \
+					/         \
+				  Default      unstructred 
+				  Structured   output data (can be solve by Output Parser)
+				  output
+				 /  |  \
+			   /    |    \
+			 /      |      \
+	 	   /        |        \
+    TypeDict   Pydantic  Json_Schema
+
+<---|--->
+OutPut Parser:Langchain helps to convert raw LLM output response into structured formats like JSON,CSV,pydantic models etc.
+	      They ensure consistency,validation and ease of use in applications.
+	      
+	      --- It can be used for both types of LLM who can give structured data and also with those LLM who cant give structured data.
+	      
+	      **Output Parser**
+	      1.String output parser
+	      2.Json output parser
+	      3.structured output parser(Removed by langchain in latest version)
+	      4.pydantic output parser  
+	      
+	      etc but this 4 are used more by people
+	      	 
+<---|--->
+Chains : In LangChain, the chain is the main component and it allow us to create pipelines to handle multiple tasks automatically.
+	 --- Example : chain = Prompt | model | parser
+	
+	          Chains are of three Types
+			  Chain   (All practices are done and available on files)
+			  / | \
+			/   |   \
+		  /     |     \
+		/       |       \
+ Sequential     |   Conditional
+			    |
+			    |
+			 Parallel
+			 
+<---|--->
+Runnables : Runnables in LangChain provide a structured and modular way to define, execute, and manage tasks within a pipeline.Because of which we are able to build a chain
+	  
+	  --- Multiple Runnables can be linked together to form a pipeline.
+	  --- Once defined, a Runnable can be used in different workflows without modification.
+	  
+	  ** after the creation of all components which helps in making of the RAG based application, langchain created chain(ex LLMChain,RetrievalQA etc)
+	     but problem for this was they made lots of chain for different usecase and when they want to connect this chains.The task was very complexing to do  
+	     because from the start they havent made all the components and structure to be compatible to each other so they made all things from the start again 
+	     with the help of runnables which share some common functions because of which this pipelines were able to work.
+	     
+			     Runnable
+			      /    \
+			    /        \
+			  /            \
+		 	/                \ 
+		Task Specific       Primitives
+				 		     |-- RunnableSequence (it can also be defined as LECL)
+				 		     |-- RunnableParallel
+				 		     |-- RunnablePassthrough (it returns the input as output)
+				 		     |-- RunnableLambda (converts a function into runnable)
+				 		     |-- RunnableBranch (Conditional Chains)
+
+<-- Task Specific : These are core langchain components that have been converted into runnables so they can be used in piplines
+                  --- Example : PrompTemplate,Invoke,Retriver,Parser etc
+                  
+<-- Primitive : These are fundamentals building blocks for structuring execution logic in AI workflows
+	      --- Example : RunnableSequence,RunnableBranch,RunnableMap.RunnableLambda etc
+	      
+	      
+<---|--->
+RAG based techniques : RAG (Retrievel Augmented Generation)--> RAG is a way to make a language model smarter by giving it extra information at the time you ask question.
+
+** 1.Document Loader : For loading Documents like directory,pdf,txt file,csv and many more
+		       -- Also you can create your custom based loader by taking reference from langchain site
+   
+                   --> | <-- Here i have practiced for 
+                        1.txt files
+                        2.directory
+                        3.pdf
+                        4.csv
+                        5.WebBased
+                        
+** 2.Text Splitting : It is the process of breaking large chunks of data (like article,pdf,html pages) into a small and managable chunks 
+		      that an LLM can handle.
+                   
+			  Text Splitters
+			  /   |   |   \
+			/     |   |     \
+		  /       |   |       \
+		/         |   |         \
+	Length        |   |       Semantic Meaning based   
+	Basesd        |   |
+		 	     /     \
+		 	   /         \
+		    Text        Document 
+		    structure     structure 
+		    based          based
+		     
+** 3.Vector Stores : A vector store is a database designed to store high-dimensional vectors (embeddings) instead of regular text or numbers.
+
+		    -->Each piece of data (text, image, audio) is converted into a vector using an embedding model.
+		    -->Vectors capture semantic meaning — e.g., "cat" and "feline" are close in vector space.
+		    -->The vector store allows efficient storage, retrieval, and similarity search of these vectors.
+		    
+		   ** Why we need it					** Use cases
+ 		     a) Semantic Search					  a)  "
+ 		     b) Efficient Retrieval				  b) Recommendation systems
+ 		     c) RAG (Retrieval-Augmented Generation)		  c) "
+ 		     							  d)Image/Multimedia search
+ 		     							  
+ 		   -->A vector store is a specialized storage system for high-dimensional vector data, 
+ 		      while a vector database is a more comprehensive system that includes a vector store and adds full database functionalities 
+ 		      like distributed storage, scaling, security, and complex query support.
+ 		      
+** 4.Retrievers : A retriever is an interface that returns documents given an unstructured query. It is more general than a vector store.
+ 	       --- A retriever does not need to be able to store documents, only to return (or retrieve) them. 		
+ 	       --- Retrievers accept a string query as input and return a list of Documents as output.
+ 	       --- Note that all vector stores can be cast to retrievers.
+ 	       
+ 	       There are lots of Retrievers but here we are viewing only 5
+ 	       
+ 	       1.Wikipedia 
+ 	       2.Vector Stores
+ 	       3.Maximum Marginal Relevance - MMR
+ 	       4.Multi Query Retriever
+ 	       5.Contextual Compression Retriever

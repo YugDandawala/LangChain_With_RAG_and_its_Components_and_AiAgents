@@ -1,0 +1,17 @@
+{
+    "name": null,
+    "input_variables": [
+        "length_input",
+        "paper_input",
+        "style_input"
+    ],
+    "optional_variables": [],
+    "output_parser": null,
+    "partial_variables": {},
+    "metadata": null,
+    "tags": null,
+    "template": "Please summarize the reaserch paper titled {paper_input} with the following specification\nExplanation style :{style_input} and Explanation length :{length_input} wioth 1.mathematical detailed 2.analogies\nEnsure the summary is clear ,accurate and aligned with the provide style and length",
+    "template_format": "f-string",
+    "validate_template": true,
+    "_type": "prompt"
+}
