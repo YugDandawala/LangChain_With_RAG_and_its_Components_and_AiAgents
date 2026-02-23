@@ -184,3 +184,41 @@ RAG based techniques : RAG (Retrievel Augmented Generation)--> RAG is a way to m
  	       3.Maximum Marginal Relevance - MMR
  	       4.Multi Query Retriever
  	       5.Contextual Compression Retriever
+ 	       
+<---|--->
+Agents: Agents use an LLM to decide which actions to take. They use tools to interact with the world.
+
+** Reasoning Systems **
+1. zero-shot-react-description: Agent reads tool descriptions and decides which to call on the fly.
+2. zero-shot-react-docstore: Designed for searching documents with vector databases.
+3. conversational-react-description: ReAct + maintains chat history for context.
+4. self-ask-with-search: Breaks questions into sub-questions and uses search.
+5. structured-chat-zero-shot: Ensures response follows a structured format (JSON/YAML).
+6. reAct-style: Reason + Act.
+7. conversational-react-docstore: ReAct + document search + conversation context.
+8. self-ask-with-search-plus-memory: Sub-questions + search + memory.
+9. Structured-chat-conversational: Memory-enabled assistant with structured workflow.
+
+<---|--->
+CRAG (Corrective RAG): Advanced RAG workflow that adds a self-correction layer.
+
+1. Evaluator: A component (often an LLM) that grades retrieved documents as "relevant", "ambiguous", or "irrelevant".
+2. Query Rewrite: If the context is insufficient or irrelevant, the query is rewritten to improve retrieval.
+3. Web Search fallback: If local documents aren't enough, the system uses tools like Tavily for web search.
+4. Refinement: Final answer generation using the most relevant context (local or web).
+
+Implementation uses LangGraph for state management and decision branching.
+
+<---|--->
+FastAPI Integration: Running LangChain as a web service.
+
+- Use FastAPI for the backend API.
+- Jinja2 templates for the frontend (index.html).
+- Integration with PGVector for persistent storage.
+- Similarity search performed on every request to provide context to the LLM.
+
+<---|--->
+Vector Stores - PGVector: A PostgreSQL extension for vector similarity search.
+- Allows storing embeddings alongside relational data.
+- Supports efficient HNSW and IVFFlat indexing.
+- Connection string format: `postgresql+psycopg2://user:password@host:port/dbname`
